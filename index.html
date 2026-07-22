@@ -1,0 +1,690 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Nazareno Ferreyro — Ingeniería en Informática</title>
+  <meta name="description" content="Estudiante de Ingeniería en Informática en UCEMA. Infraestructura, sistemas operativos y hardware para inteligencia artificial.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --bg-raised: #141416;
+      --text: #ededef;
+      --text-dim: #9c9ca4;
+      --text-faint: #66666f;
+      --rule: #232327;
+      --rule-strong: #34343a;
+      --accent: #c9a227;
+      --sans: "Inter", system-ui, -apple-system, sans-serif;
+      --display: "Space Grotesk", "Inter", system-ui, sans-serif;
+      --mono: "JetBrains Mono", ui-monospace, "SF Mono", Menlo, monospace;
+      --measure: 62ch;
+      --page: 1120px;
+      --gutter: 40px;
+    }
+
+    html { scroll-behavior: smooth; }
+    @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
+      * { transition: none !important; }
+    }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      font-size: 16px;
+      line-height: 1.65;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+    /* thin signature line across the very top */
+    body::before {
+      content: ""; position: fixed; top: 0; left: 0; right: 0; height: 2px;
+      background: var(--accent); z-index: 50;
+    }
+
+    ::selection { background: var(--accent); color: #0d0d0f; }
+    a { color: inherit; text-decoration: none; }
+    :focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; border-radius: 2px; }
+
+    .page { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter); }
+
+    /* ---------- masthead ---------- */
+    header.masthead {
+      border-bottom: 1px solid var(--rule);
+      position: sticky; top: 0; z-index: 10;
+      background: rgba(13, 13, 15, 0.9);
+      backdrop-filter: blur(10px);
+    }
+    .masthead-inner { display: flex; align-items: center; gap: 24px; height: 64px; }
+    .wordmark { font-family: var(--display); font-size: 16px; font-weight: 600; letter-spacing: -0.01em; margin-right: auto; }
+    .status {
+      font-family: var(--mono); font-size: 11.5px; color: var(--text-dim);
+      display: inline-flex; align-items: center; gap: 7px; margin-right: auto;
+    }
+    .status .dot {
+      width: 7px; height: 7px; border-radius: 50%;
+      background: var(--accent); box-shadow: 0 0 0 3px rgba(201,162,39,0.16);
+    }
+    .masthead nav { display: flex; gap: 24px; }
+    .masthead nav a {
+      font-family: var(--mono); font-size: 12.5px; color: var(--text-dim);
+      position: relative; padding-bottom: 2px; transition: color 0.15s;
+    }
+    .masthead nav a:hover { color: var(--text); }
+    .masthead nav a.active { color: var(--text); }
+    .masthead nav a.active::after {
+      content: ""; position: absolute; left: 0; right: 0; bottom: -3px;
+      height: 1.5px; background: var(--accent);
+    }
+
+    /* ---------- hero ---------- */
+    .hero { padding: 100px 0 84px; border-bottom: 1px solid var(--rule); }
+    .hero-eyebrow {
+      font-family: var(--mono); font-size: 12.5px; color: var(--accent);
+      letter-spacing: 0.02em; margin-bottom: 28px;
+      display: inline-flex; align-items: center; gap: 10px;
+    }
+    .hero-eyebrow::before {
+      content: ""; width: 7px; height: 7px; background: var(--accent);
+      transform: rotate(45deg); flex: none;
+    }
+    .hero h1 {
+      font-family: var(--display);
+      font-size: clamp(42px, 6.4vw, 82px);
+      font-weight: 600;
+      letter-spacing: -0.035em;
+      line-height: 1.04;
+      max-width: 16ch;
+      margin-bottom: 32px;
+    }
+    .hero h1 em { font-style: normal; color: var(--accent); }
+    .hero-lead {
+      max-width: var(--measure); color: var(--text-dim);
+      font-size: clamp(16px, 1.5vw, 18.5px); line-height: 1.7;
+    }
+    .hero-lead strong { color: var(--text); font-weight: 500; }
+    .hero-actions { display: flex; gap: 10px; margin-top: 36px; flex-wrap: wrap; }
+
+    /* ---------- buttons ---------- */
+    .btn {
+      display: inline-flex; align-items: center; gap: 8px;
+      font-size: 14px; font-weight: 500; padding: 10px 20px;
+      border-radius: 7px; border: 1px solid var(--rule-strong); color: var(--text);
+      transition: border-color 0.18s, background-color 0.18s, color 0.18s;
+    }
+    .btn:hover { border-color: var(--text-faint); background: var(--bg-raised); }
+    .btn-primary { background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 600; }
+    .btn-primary:hover { background: #fff; border-color: #fff; color: var(--bg); }
+
+    /* ---------- sections ---------- */
+    section { padding: 84px 0; border-bottom: 1px solid var(--rule); }
+    section:last-of-type { border-bottom: 0; }
+    .sec-head { margin-bottom: 48px; }
+    .sec-index {
+      font-family: var(--mono); font-size: 12px; color: var(--accent);
+      letter-spacing: 0.02em;
+      display: flex; align-items: center; gap: 12px; margin-bottom: 14px;
+    }
+    .sec-index::before {
+      content: ""; width: 7px; height: 7px; background: var(--accent);
+      transform: rotate(45deg); flex: none;
+    }
+    .sec-index::after { content: ""; height: 1px; flex: 1; background: var(--rule); }
+    .sec-title { font-family: var(--display); font-size: clamp(25px, 3.1vw, 34px); font-weight: 600; letter-spacing: -0.02em; line-height: 1.12; }
+
+    /* ---------- case studies ---------- */
+    .cases { display: flex; flex-direction: column; gap: 88px; }
+    .case { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 52px; align-items: start; }
+    .case:nth-child(even) .case-body { order: 2; }   /* alternate sides */
+    .case-num {
+      font-family: var(--mono); font-size: 12px; color: var(--text-faint);
+      letter-spacing: 0.06em; margin-bottom: 16px;
+    }
+    .case-kicker { font-family: var(--mono); font-size: 11.5px; color: var(--accent); letter-spacing: 0.04em; margin-bottom: 8px; }
+    .case-title { font-family: var(--display); font-size: clamp(22px, 2.6vw, 29px); font-weight: 600; letter-spacing: -0.015em; line-height: 1.15; margin-bottom: 18px; }
+    .case-desc { color: var(--text-dim); font-size: 15.5px; line-height: 1.72; }
+    .case-desc p + p { margin-top: 13px; }
+    .case-desc strong { color: var(--text); font-weight: 500; }
+    .case-foot { margin-top: 22px; display: flex; flex-direction: column; gap: 14px; }
+    .case-stack { font-family: var(--mono); font-size: 11.5px; color: var(--text-faint); line-height: 1.7; }
+    .case-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .case-link {
+      font-size: 14px; font-weight: 500; color: var(--text);
+      display: inline-flex; align-items: center; gap: 7px;
+      border-bottom: 1px solid var(--rule-strong); padding-bottom: 2px;
+      transition: color 0.18s, border-color 0.18s;
+    }
+    .case-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .case-link .arw { color: var(--text-faint); transition: color 0.18s; }
+    .case-link:hover .arw { color: var(--accent); }
+
+    /* figure / screenshot frame */
+    .case-figure { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--bg-raised); }
+    .case-figure img { display: block; width: 100%; height: auto; }
+    .figbar {
+      display: flex; align-items: center; gap: 7px;
+      padding: 11px 14px; border-bottom: 1px solid var(--rule);
+      font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+    }
+    .figbar .d { width: 9px; height: 9px; border-radius: 50%; background: var(--rule-strong); }
+    .figbar .label { margin-left: 8px; }
+    .shot-pending {
+      aspect-ratio: 16 / 10; display: flex; flex-direction: column;
+      align-items: center; justify-content: center; gap: 8px;
+      color: var(--text-faint); font-family: var(--mono); font-size: 12px;
+      background:
+        repeating-linear-gradient(-45deg, transparent 0 11px, rgba(255,255,255,0.012) 11px 22px);
+    }
+    .shot-pending .big { font-size: 22px; color: var(--rule-strong); }
+
+    /* text-only case (paper) keeps a full-width narrower measure */
+    .case.solo { grid-template-columns: 1fr; }
+    .case.solo .case-desc, .case.solo .case-title { max-width: var(--measure); }
+
+    /* ---------- carousel ---------- */
+    .carousel-viewport { position: relative; overflow: hidden; }
+    .carousel-track {
+      display: flex;
+      transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+      will-change: transform;
+    }
+    @media (prefers-reduced-motion: reduce) { .carousel-track { transition: none; } }
+    .carousel-track .slide { flex: 0 0 100%; min-width: 100%; }
+    .carousel-track .slide img { display: block; width: 100%; height: auto; }
+
+    .car-nav {
+      position: absolute; top: 50%; transform: translateY(-50%);
+      width: 36px; height: 36px; border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      background: rgba(13, 13, 15, 0.72); border: 1px solid var(--rule-strong);
+      color: var(--text); font-size: 20px; line-height: 1; cursor: pointer;
+      backdrop-filter: blur(6px); transition: background 0.18s, border-color 0.18s, opacity 0.18s;
+      opacity: 0;
+    }
+    .carousel:hover .car-nav, .carousel:focus-within .car-nav { opacity: 1; }
+    .car-nav:hover { background: rgba(13,13,15,0.92); border-color: var(--text-faint); }
+    .car-nav.prev { left: 12px; }
+    .car-nav.next { right: 12px; }
+    @media (hover: none) { .car-nav { opacity: 1; } }
+
+    .carousel-dots {
+      display: flex; gap: 8px; justify-content: center; align-items: center;
+      padding: 14px 0 15px; border-top: 1px solid var(--rule);
+    }
+    .carousel-dots button {
+      width: 7px; height: 7px; border-radius: 50%; padding: 0;
+      background: var(--rule-strong); border: 0; cursor: pointer;
+      transition: background 0.18s, transform 0.18s;
+    }
+    .carousel-dots button:hover { background: var(--text-faint); }
+    .carousel-dots button[aria-current="true"] { background: var(--accent); transform: scale(1.25); }
+
+    /* ---------- profile ---------- */
+    .profile-grid { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 48px; align-items: start; }
+    .profile-photo {
+      border: 1px solid var(--rule); border-radius: 12px; overflow: hidden;
+      background: var(--bg-raised); position: relative;
+    }
+    .profile-photo img { display: block; width: 100%; height: auto; }
+    .profile-photo figcaption {
+      font-family: var(--mono); font-size: 11px; color: var(--text-faint);
+      letter-spacing: 0.02em; padding: 11px 14px; border-top: 1px solid var(--rule);
+    }
+    .profile-grid .prose { max-width: var(--measure); }
+    @media (max-width: 720px) {
+      .profile-grid { grid-template-columns: 1fr; gap: 28px; }
+      .profile-photo { max-width: 240px; }
+    }
+
+    /* ---------- prose ---------- */
+    .prose { max-width: var(--measure); color: var(--text-dim); font-size: 16.5px; }
+    .prose p + p { margin-top: 16px; }
+    .prose strong { color: var(--text); font-weight: 500; }
+
+    /* ---------- definition rows ---------- */
+    .defs { display: flex; flex-direction: column; }
+    .def-row { display: grid; grid-template-columns: 180px 1fr; gap: 8px 24px; padding: 16px 0; border-top: 1px solid var(--rule); }
+    .def-row:last-child { border-bottom: 1px solid var(--rule); }
+    .def-key { font-family: var(--mono); font-size: 12px; color: var(--text-faint); padding-top: 3px; letter-spacing: 0.02em; }
+    .def-val { color: var(--text); font-size: 15px; }
+    .def-val .sep { color: var(--text-faint); margin: 0 8px; }
+
+    /* ---------- credentials ---------- */
+    .cred-row { display: grid; grid-template-columns: 1fr auto; align-items: baseline; gap: 6px 20px; padding: 15px 0; border-top: 1px solid var(--rule); }
+    .cred-row:last-child { border-bottom: 1px solid var(--rule); }
+    .cred-name { font-size: 15px; font-weight: 500; }
+    .cred-issuer { font-size: 13.5px; color: var(--text-dim); }
+    .cred-date { font-family: var(--mono); font-size: 12px; color: var(--text-faint); white-space: nowrap; }
+
+    /* ---------- contact ---------- */
+    .contact-grid { display: grid; grid-template-columns: minmax(0,1fr) minmax(0,1fr); gap: 48px; align-items: start; }
+    .contact-list { display: flex; flex-direction: column; }
+    .contact-row { display: grid; grid-template-columns: 120px 1fr; gap: 8px 24px; padding: 15px 0; border-top: 1px solid var(--rule); align-items: baseline; }
+    .contact-row:last-child { border-bottom: 1px solid var(--rule); }
+    .contact-row a { font-size: 15px; border-bottom: 1px solid var(--rule-strong); transition: border-color 0.18s, color 0.18s; }
+    .contact-row a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+
+    footer { padding: 40px 0 60px; font-family: var(--mono); font-size: 12px; color: var(--text-faint); }
+    .footer-inner { display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+
+    /* ---------- responsive ---------- */
+    @media (max-width: 860px) {
+      .case, .case:nth-child(even) .case-body { grid-template-columns: 1fr; order: 0; gap: 28px; }
+      .case-figure { order: 2; }
+      .contact-grid { grid-template-columns: 1fr; gap: 8px; }
+    }
+    @media (max-width: 640px) {
+      :root { --gutter: 22px; }
+      .hero { padding: 64px 0 56px; }
+      section { padding: 60px 0; }
+      .cases { gap: 64px; }
+      .def-row, .contact-row { grid-template-columns: 1fr; gap: 4px; }
+      .masthead nav { display: none; }
+      .status { margin-right: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="masthead">
+    <div class="page masthead-inner">
+      <div class="wordmark">Nazareno Gastón Ferreyro</div>
+      <nav>
+        <a href="#trabajo">Trabajo</a>
+        <a href="#perfil">Perfil</a>
+        <a href="#stack">Stack</a>
+        <a href="#formacion">Formación</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+
+    <section class="hero">
+      <div class="page">
+        <div class="hero-eyebrow">Estudiante de Ingeniería en Informática — Universidad del CEMA, Buenos Aires</div>
+        <h1>Me interesa la capa que <em>sostiene</em> todo lo demás.</h1>
+        <p class="hero-lead">Sistemas, infraestructura y el hardware que lleva la IA fuera de la nube: ahí está mi interés. Soy <strong>Analista en Informática</strong> y curso el tercer año de <strong>Ingeniería en Informática</strong>, mientras me formo en cloud e IA.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#trabajo">Ver trabajo</a>
+          <a class="btn" href="https://github.com/nazagf" target="_blank" rel="noopener">GitHub</a>
+          <a class="btn" href="https://www.linkedin.com/in/nazareno-gast%C3%B3n-ferreyro" target="_blank" rel="noopener">LinkedIn</a>
+          <!-- TODO: reemplazar href="#" por la ruta del PDF del CV (ej. ./CV-Nazareno-Ferreyro.pdf) y agregar download -->
+          <a class="btn" href="#">Descargar CV</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="trabajo">
+      <div class="page">
+        <div class="sec-head">
+          <div class="sec-index">#trabajo · 3 proyectos</div>
+          <h2 class="sec-title">Trabajo seleccionado</h2>
+        </div>
+
+        <div class="cases">
+
+          <article class="case">
+            <div class="case-body">
+              <div class="case-num">01 / Sistema web — Programación III</div>
+              <div class="case-kicker">Django · Modelado de datos</div>
+              <h3 class="case-title">Sistema de gestión de biblioteca</h3>
+              <div class="case-desc">
+                <p>Aplicación Django construida sobre un modelo de diez entidades. El peso del proyecto no estuvo en la interfaz sino en las <strong>decisiones de modelado</strong>, que resuelven problemas reales de una biblioteca.</p>
+                <p>Préstamos y reservas apuntan al <strong>ejemplar físico</strong> y no al libro como entidad abstracta, y cada ejemplar mantiene su propio estado —disponible, prestado, reservado, mantenimiento—. El socio se identifica por DNI como clave primaria y se vincula de forma opcional a un usuario del sistema, separando la persona del acceso. La multa es una relación uno a uno con el préstamo, cuyo vencimiento se resuelve como propiedad calculada en lugar de guardarse.</p>
+              </div>
+              <div class="case-foot">
+                <div class="case-stack">Python · Django · MySQL · Modelo E-R</div>
+                <div class="case-links">
+                  <a class="case-link" href="https://github.com/nazagf/Biblioteca" target="_blank" rel="noopener">Repositorio <span class="arw">↗</span></a>
+                  <!-- TODO: reemplazar por la URL real del demo -->
+                  <a class="case-link" href="#" target="_blank" rel="noopener">Demo en vivo <span class="arw">↗</span></a>
+                </div>
+              </div>
+            </div>
+            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas del sistema de biblioteca" tabindex="0">
+              <div class="figbar">
+                <span class="d"></span><span class="d"></span><span class="d"></span>
+                <span class="label" data-car-label>biblioteca — inicio de sesión</span>
+              </div>
+              <div class="carousel-viewport">
+                <div class="carousel-track" data-car-track>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 6" data-caption="biblioteca — inicio de sesión">
+                    <img src="./biblioteca/01-login.png" alt="Pantalla de inicio de sesión de Entre Páginas" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 6" data-caption="biblioteca — inicio (bibliotecario)">
+                    <img src="./biblioteca/02-inicio.png" alt="Inicio con sesión de bibliotecario iniciada" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 6" data-caption="biblioteca — catálogo · detalle de libro">
+                    <img src="./biblioteca/03-catalogo.png" alt="Detalle de un libro del catálogo" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 6" data-caption="biblioteca — gestión de socios">
+                    <img src="./biblioteca/04-socios.png" alt="Gestión de socios en tarjetas" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 6" data-caption="biblioteca — gestión de préstamos">
+                    <img src="./biblioteca/05-prestamos.png" alt="Gestión de préstamos en tabla" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="6 de 6" data-caption="biblioteca — gestión de reservas">
+                    <img src="./biblioteca/06-reservas.png" alt="Gestión de reservas en tabla" width="1600" height="715" loading="lazy" decoding="async">
+                  </div>
+                </div>
+                <button class="car-nav prev" type="button" data-car-prev aria-label="Captura anterior">‹</button>
+                <button class="car-nav next" type="button" data-car-next aria-label="Captura siguiente">›</button>
+              </div>
+              <div class="carousel-dots" role="tablist" aria-label="Elegir captura" data-car-dots></div>
+            </figure>
+          </article>
+
+          <article class="case">
+            <div class="case-body">
+              <div class="case-num">02 / Aplicación web — Proyecto personal</div>
+              <div class="case-kicker">Django · PostgreSQL · Chart.js</div>
+              <h3 class="case-title">MisGastos — Dashboard financiero</h3>
+              <div class="case-desc">
+                <p>Aplicación de finanzas personales con <strong>front y back en Django</strong>: registra gastos, controla presupuestos por mes y grafica tendencias, con persistencia en PostgreSQL a través del <strong>ORM de Django</strong> —con migraciones, panel de administración y una API JSON propia—. El frontend, con diseño de «estado de cuenta», se sirve como template con estáticos.</p>
+                <p>El panel resume el gasto del mes contra el presupuesto y dibuja su evolución con Chart.js; los presupuestos se controlan por categoría con su progreso mensual, y la gestión de datos incluye <strong>importación y exportación en CSV</strong>, backup y restauración en JSON. La identidad visual —papel cálido, acento dorado y tipografía tabular— busca leerse como un estado de cuenta.</p>
+              </div>
+              <div class="case-foot">
+                <div class="case-stack">Django · PostgreSQL · ORM · Tailwind · Chart.js</div>
+                <div class="case-links">
+                  <a class="case-link" href="https://github.com/nazagf/MisGastos" target="_blank" rel="noopener">Repositorio <span class="arw">↗</span></a>
+                </div>
+              </div>
+            </div>
+            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas de MisGastos" tabindex="0">
+              <div class="figbar">
+                <span class="d"></span><span class="d"></span><span class="d"></span>
+                <span class="label" data-car-label>MisGastos — dashboard</span>
+              </div>
+              <div class="carousel-viewport">
+                <div class="carousel-track" data-car-track>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 4" data-caption="MisGastos — dashboard">
+                    <img src="./misgastos/01-dashboard.png" alt="Dashboard con gasto total del mes y métricas por categoría" width="1600" height="780" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4" data-caption="MisGastos — registro de gastos">
+                    <img src="./misgastos/02-gastos.png" alt="Registro de gastos en tabla con filtros por categoría y medio de pago" width="1600" height="780" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4" data-caption="MisGastos — presupuestos por categoría">
+                    <img src="./misgastos/03-presupuestos.png" alt="Presupuestos mensuales por categoría con su progreso" width="1600" height="780" loading="lazy" decoding="async">
+                  </div>
+                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4" data-caption="MisGastos — exportación e importación">
+                    <img src="./misgastos/04-exportar.png" alt="Gestión de datos: exportar e importar CSV, backup y restauración JSON" width="1600" height="780" loading="lazy" decoding="async">
+                  </div>
+                </div>
+                <button class="car-nav prev" type="button" data-car-prev aria-label="Captura anterior">‹</button>
+                <button class="car-nav next" type="button" data-car-next aria-label="Captura siguiente">›</button>
+              </div>
+              <div class="carousel-dots" role="tablist" aria-label="Elegir captura" data-car-dots></div>
+            </figure>
+          </article>
+
+          <article class="case solo">
+            <div class="case-body">
+              <div class="case-num">03 / Investigación — Lenguajes Formales y Teoría de la Computación</div>
+              <div class="case-kicker">Trabajo en equipo · Julio 2026</div>
+              <h3 class="case-title">Del paralelismo masivo a la eficiencia neuronal</h3>
+              <div class="case-desc">
+                <p>Trabajo de investigación en equipo que recorre la limitación secuencial de la CPU, el paralelismo SIMT de la GPU y la especialización de NPU y TPU para sostener una hipótesis: que la integración cotidiana de la IA exige <strong>hardware de inferencia dedicado en el cliente</strong>, porque depender exclusivamente de servidores en la nube es insostenible en latencia, privacidad, costo y ancho de banda.</p>
+              </div>
+              <div class="case-foot">
+                <div class="case-stack">CPU · GPU / SIMT · NPU · TPU</div>
+                <div class="case-links">
+                  <a class="case-link" href="./paper-hardware-ia.pdf" target="_blank" rel="noopener">Leer el paper (PDF) <span class="arw">↗</span></a>
+                  <a class="case-link" href="./presentacion-hardware-ia.pdf" target="_blank" rel="noopener">Ver presentación <span class="arw">↗</span></a>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="perfil">
+      <div class="page">
+        <div class="sec-head">
+          <div class="sec-index">#perfil</div>
+          <h2 class="sec-title">Perfil</h2>
+        </div>
+        <div class="profile-grid">
+          <figure class="profile-photo">
+            <img src="./retrato-naza.jpg" alt="Retrato de Nazareno Ferreyro" width="720" height="900" loading="lazy" decoding="async">
+            <figcaption>Nazareno Ferreyro — Buenos Aires</figcaption>
+          </figure>
+          <div class="prose">
+            <p>Llevo <strong>21 materias aprobadas</strong> de la carrera. Mi interés está menos en el desarrollo de interfaces y más en las capas inferiores: sistemas operativos, administración, redes y la infraestructura que sostiene todo lo demás.</p>
+            <p>De ahí se desprende mi interés por el hardware aplicado a inteligencia artificial: cómo las unidades de aceleración dedicadas redefinen qué resulta viable ejecutar en el propio dispositivo en lugar de delegarlo a la nube. Es el eje del trabajo de investigación que desarrollé para Lenguajes Formales y Teoría de la Computación.</p>
+            <p>Actualmente me estoy formando en <strong>servicios cloud</strong> y profundizando en administración de sistemas. Además, participo en la formación de la rama estudiantil de <strong>IEEE Computer Society</strong> en UCEMA.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="stack">
+      <div class="page">
+        <div class="sec-head">
+          <div class="sec-index">#stack</div>
+          <h2 class="sec-title">Stack</h2>
+        </div>
+        <div class="defs">
+          <div class="def-row">
+            <div class="def-key">lenguajes</div>
+            <div class="def-val">Python <span class="sep">/</span> C <span class="sep">/</span> C# <span class="sep">/</span> T-SQL</div>
+          </div>
+          <div class="def-row">
+            <div class="def-key">frameworks</div>
+            <div class="def-val">Django</div>
+          </div>
+          <div class="def-row">
+            <div class="def-key">infraestructura</div>
+            <div class="def-val">Linux <span class="sep">/</span> Git <span class="sep">/</span> Cloud <span class="sep">/</span> n8n <span class="sep">/</span> Docker</div>
+          </div>
+          <div class="def-row">
+            <div class="def-key">datos</div>
+            <div class="def-val">Modelado E-R <span class="sep">/</span> SQL <span class="sep">/</span> MySQL</div>
+          </div>
+          <div class="def-row">
+            <div class="def-key">idiomas</div>
+            <div class="def-val">Español nativo <span class="sep">/</span> Inglés B2</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="formacion">
+      <div class="page">
+        <div class="sec-head">
+          <div class="sec-index">#formacion</div>
+          <h2 class="sec-title">Formación</h2>
+        </div>
+        <div class="defs" style="margin-bottom: 40px;">
+          <div class="def-row">
+            <div class="def-key">en curso</div>
+            <div class="def-val">Ingeniería en Informática — UCEMA<br><span style="color: var(--text-dim); font-size: 14px;">Tercer año · 21 materias aprobadas</span></div>
+          </div>
+          <div class="def-row">
+            <div class="def-key">título obtenido</div>
+            <div class="def-val">Analista en Informática — UCEMA</div>
+          </div>
+        </div>
+
+        <div class="def-key" style="margin-bottom: 6px;">certificaciones</div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-name">LFS-101 — Introduction to Linux</div>
+            <div class="cred-issuer">The Linux Foundation</div>
+          </div>
+          <div class="cred-date">Jul 2025</div>
+        </div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-name">AI Fundamentals</div>
+            <div class="cred-issuer">Google</div>
+          </div>
+          <div class="cred-date">Oct 2024</div>
+        </div>
+        <div class="cred-row">
+          <div>
+            <div class="cred-name">Fundamentos de Inteligencia Artificial</div>
+            <div class="cred-issuer">IBM</div>
+          </div>
+          <div class="cred-date">Oct 2024</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="contacto">
+      <div class="page">
+        <div class="sec-head">
+          <div class="sec-index">#contacto</div>
+          <h2 class="sec-title">Contacto</h2>
+        </div>
+        <div class="contact-grid">
+          <p class="prose">Mi área de interés profesional es la infraestructura, el cloud y la administración de sistemas. Para consultas o propuestas, estoy disponible por cualquiera de estos medios.</p>
+          <div class="contact-list">
+            <div class="contact-row">
+              <div class="def-key">email</div>
+              <div><a href="mailto:nferreyro@outlook.com">nferreyro@outlook.com</a></div>
+            </div>
+            <div class="contact-row">
+              <div class="def-key">github</div>
+              <div><a href="https://github.com/nazagf" target="_blank" rel="noopener">github.com/nazagf</a></div>
+            </div>
+            <div class="contact-row">
+              <div class="def-key">linkedin</div>
+              <div><a href="https://www.linkedin.com/in/nazareno-gast%C3%B3n-ferreyro" target="_blank" rel="noopener">Nazareno Gastón Ferreyro</a></div>
+            </div>
+            <div class="contact-row">
+              <div class="def-key">ubicación</div>
+              <div style="color: var(--text-dim); font-size: 15px;">Buenos Aires, Argentina</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer>
+    <div class="page footer-inner">
+      <span>Nazareno Gastón Ferreyro</span>
+      <span>Buenos Aires — 2026</span>
+    </div>
+  </footer>
+
+  <script>
+    Array.prototype.slice.call(document.querySelectorAll('.carousel')).forEach(function (root) {
+      var track  = root.querySelector('[data-car-track]');
+      if (!track) return;
+      var slides = Array.prototype.slice.call(track.children);
+      var dotsWrap = root.querySelector('[data-car-dots]');
+      var label  = root.querySelector('[data-car-label]');
+      var prevBtn = root.querySelector('[data-car-prev]');
+      var nextBtn = root.querySelector('[data-car-next]');
+
+      var captions = slides.map(function (s) {
+        var img = s.querySelector('img');
+        return s.getAttribute('data-caption') || (img ? img.getAttribute('alt') : '') || '';
+      });
+
+      var index = 0;
+      var count = slides.length;
+
+      // build dots
+      var dots = slides.map(function (_, i) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.setAttribute('role', 'tab');
+        b.setAttribute('aria-label', 'Captura ' + (i + 1) + ' de ' + count);
+        b.addEventListener('click', function () { go(i); });
+        dotsWrap.appendChild(b);
+        return b;
+      });
+
+      function render() {
+        track.style.transform = 'translateX(' + (-index * 100) + '%)';
+        if (label) label.textContent = captions[index] || '';
+        dots.forEach(function (d, i) {
+          d.setAttribute('aria-current', i === index ? 'true' : 'false');
+        });
+        slides.forEach(function (s, i) {
+          s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+        });
+      }
+
+      function go(i) { index = (i + count) % count; render(); }
+      function next() { go(index + 1); }
+      function prev() { go(index - 1); }
+
+      nextBtn.addEventListener('click', next);
+      prevBtn.addEventListener('click', prev);
+
+      root.addEventListener('keydown', function (e) {
+        if (e.key === 'ArrowRight') { e.preventDefault(); next(); }
+        else if (e.key === 'ArrowLeft') { e.preventDefault(); prev(); }
+      });
+
+      // touch / swipe
+      var x0 = null;
+      root.addEventListener('touchstart', function (e) { x0 = e.touches[0].clientX; }, { passive: true });
+      root.addEventListener('touchend', function (e) {
+        if (x0 === null) return;
+        var dx = e.changedTouches[0].clientX - x0;
+        if (Math.abs(dx) > 40) { dx < 0 ? next() : prev(); }
+        x0 = null;
+      });
+
+      // autoplay, paused on hover/focus and when reduced motion is preferred
+      var reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      var timer = null;
+      function start() { if (!reduce && !timer) timer = setInterval(next, 5000); }
+      function stop() { if (timer) { clearInterval(timer); timer = null; } }
+      root.addEventListener('mouseenter', stop);
+      root.addEventListener('mouseleave', start);
+      root.addEventListener('focusin', stop);
+      root.addEventListener('focusout', start);
+      document.addEventListener('visibilitychange', function () {
+        document.hidden ? stop() : start();
+      });
+
+      render();
+      start();
+    });
+
+    // scrollspy: mark the nav link of the section currently in view
+    (function () {
+      var links = Array.prototype.slice.call(document.querySelectorAll('.masthead nav a'));
+      if (!links.length || !('IntersectionObserver' in window)) return;
+      var byId = {};
+      links.forEach(function (a) { byId[a.getAttribute('href').slice(1)] = a; });
+
+      var sections = links
+        .map(function (a) { return document.getElementById(a.getAttribute('href').slice(1)); })
+        .filter(Boolean);
+
+      var current = null;
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) {
+          if (!e.isIntersecting) return;
+          var link = byId[e.target.id];
+          if (!link || link === current) return;
+          if (current) current.classList.remove('active');
+          link.classList.add('active');
+          current = link;
+        });
+      }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
+
+      sections.forEach(function (s) { io.observe(s); });
+    })();
+  </script>
+
+</body>
+</html>

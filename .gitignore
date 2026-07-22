@@ -1,0 +1,16 @@
+# Basura del editor de diseño — nunca publicar
+_ds/
+scoped/
+*.zip
+*.dc.html
+support.js
+image-slot.js
+.thumbnail
+
+# Fuentes/privados que no van al sitio publicado
+Foto naza.jpg
+Solicitud de dominio.pdf
+
+# Sistema operativo / editores
+.DS_Store
+Thumbs.db
