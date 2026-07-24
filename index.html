@@ -1,10 +1,20 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-lang="es">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Nazareno Ferreyro — Ingeniería en Informática</title>
   <meta name="description" content="Estudiante de Ingeniería en Informática en UCEMA. Infraestructura, sistemas operativos y hardware para inteligencia artificial.">
+  <!-- idioma guardado: se aplica antes del primer render para evitar parpadeo -->
+  <script>
+    (function () {
+      var l = null;
+      try { l = localStorage.getItem("lang"); } catch (e) {}
+      if (l !== "en" && l !== "es") l = (navigator.language || "es").slice(0, 2) === "en" ? "en" : "es";
+      document.documentElement.setAttribute("data-lang", l);
+      document.documentElement.setAttribute("lang", l);
+    })();
+  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -55,6 +65,10 @@
 
     .page { max-width: var(--page); margin: 0 auto; padding: 0 var(--gutter); }
 
+    /* ---------- visibilidad por idioma ---------- */
+    html[data-lang="es"] .en { display: none; }
+    html[data-lang="en"] .es { display: none; }
+
     /* ---------- masthead ---------- */
     header.masthead {
       border-bottom: 1px solid var(--rule);
@@ -83,6 +97,16 @@
       content: ""; position: absolute; left: 0; right: 0; bottom: -3px;
       height: 1.5px; background: var(--accent);
     }
+
+    /* ---------- selector de idioma ---------- */
+    .langtoggle { display: inline-flex; border: 1px solid var(--rule-strong); border-radius: 4px; overflow: hidden; flex: none; }
+    .langtoggle button {
+      font-family: var(--mono); font-size: 11px; letter-spacing: 0.04em;
+      background: transparent; color: var(--text-dim); border: 0; padding: 6px 11px; cursor: pointer;
+      transition: color 0.15s, background 0.15s;
+    }
+    .langtoggle button:hover { color: var(--text); }
+    .langtoggle button.active { background: var(--accent); color: #0d0d0f; font-weight: 500; }
 
     /* ---------- hero ---------- */
     .hero { padding: 100px 0 84px; border-bottom: 1px solid var(--rule); }
@@ -297,12 +321,16 @@
     <div class="page masthead-inner">
       <div class="wordmark">Nazareno Gastón Ferreyro</div>
       <nav>
-        <a href="#trabajo">Trabajo</a>
-        <a href="#perfil">Perfil</a>
+        <a href="#trabajo"><span class="es">Trabajo</span><span class="en">Work</span></a>
+        <a href="#perfil"><span class="es">Perfil</span><span class="en">Profile</span></a>
         <a href="#stack">Stack</a>
-        <a href="#formacion">Formación</a>
-        <a href="#contacto">Contacto</a>
+        <a href="#formacion"><span class="es">Formación</span><span class="en">Education</span></a>
+        <a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a>
       </nav>
+      <div class="langtoggle" role="group" aria-label="Idioma / Language">
+        <button type="button" data-l="es" class="active" aria-pressed="true">ES</button>
+        <button type="button" data-l="en" aria-pressed="false">EN</button>
+      </div>
     </div>
   </header>
 
@@ -310,14 +338,21 @@
 
     <section class="hero">
       <div class="page">
-        <div class="hero-eyebrow">Estudiante de Ingeniería en Informática — Universidad del CEMA, Buenos Aires</div>
-        <h1>Me interesa la capa que <em>sostiene</em> todo lo demás.</h1>
-        <p class="hero-lead">Sistemas, infraestructura y el hardware que lleva la IA fuera de la nube: ahí está mi interés. Soy <strong>Analista en Informática</strong> y curso el tercer año de <strong>Ingeniería en Informática</strong>, mientras me formo en cloud e IA.</p>
+        <div class="hero-eyebrow">
+          <span class="es">Estudiante de Ingeniería en Informática — Universidad del CEMA, Buenos Aires</span>
+          <span class="en">Computer Engineering student — Universidad del CEMA, Buenos Aires</span>
+        </div>
+        <h1>
+          <span class="es">Me interesa la capa que <em>sostiene</em> todo lo demás.</span>
+          <span class="en">I care about the layer that <em>holds up</em> everything else.</span>
+        </h1>
+        <p class="hero-lead es">Sistemas, infraestructura y el hardware que lleva la IA fuera de la nube: ahí está mi interés. Soy <strong>Analista en Informática</strong> y curso el tercer año de <strong>Ingeniería en Informática</strong>, mientras me formo en cloud e IA.</p>
+        <p class="hero-lead en">Systems, infrastructure and the hardware that takes AI out of the cloud: that is where my interest lies. I am a <strong>Computer Analyst</strong> and I am in my third year of <strong>Computer Engineering</strong>, while training in cloud and AI.</p>
         <div class="hero-actions">
-          <a class="btn btn-primary" href="#trabajo">Ver trabajo</a>
+          <a class="btn btn-primary" href="#trabajo"><span class="es">Ver trabajo</span><span class="en">View work</span></a>
           <a class="btn" href="https://github.com/nazagf" target="_blank" rel="noopener">GitHub</a>
           <a class="btn" href="https://www.linkedin.com/in/nazareno-gast%C3%B3n-ferreyro" target="_blank" rel="noopener">LinkedIn</a>
-          <a class="btn" href="./cv/">Ver CV</a>
+          <a class="btn" href="./cv/"><span class="es">Ver CV</span><span class="en">View CV</span></a>
         </div>
       </div>
     </section>
@@ -325,53 +360,55 @@
     <section id="trabajo">
       <div class="page">
         <div class="sec-head">
-          <div class="sec-index">#trabajo · 3 proyectos</div>
-          <h2 class="sec-title">Trabajo seleccionado</h2>
+          <div class="sec-index"><span class="es">#trabajo · 3 proyectos</span><span class="en">#work · 3 projects</span></div>
+          <h2 class="sec-title"><span class="es">Trabajo seleccionado</span><span class="en">Selected work</span></h2>
         </div>
 
         <div class="cases">
 
           <article class="case">
             <div class="case-body">
-              <div class="case-num">01 / Sistema web — Programación III</div>
-              <div class="case-kicker">Django · Modelado de datos</div>
-              <h3 class="case-title">Sistema de gestión de biblioteca</h3>
+              <div class="case-num"><span class="es">01 / Sistema web — Programación III</span><span class="en">01 / Web system — Programming III</span></div>
+              <div class="case-kicker"><span class="es">Django · Modelado de datos</span><span class="en">Django · Data modeling</span></div>
+              <h3 class="case-title"><span class="es">Sistema de gestión de biblioteca</span><span class="en">Library management system</span></h3>
               <div class="case-desc">
-                <p>Aplicación Django construida sobre un modelo de diez entidades. El peso del proyecto no estuvo en la interfaz sino en las <strong>decisiones de modelado</strong>, que resuelven problemas reales de una biblioteca.</p>
-                <p>Préstamos y reservas apuntan al <strong>ejemplar físico</strong> y no al libro como entidad abstracta, y cada ejemplar mantiene su propio estado —disponible, prestado, reservado, mantenimiento—. El socio se identifica por DNI como clave primaria y se vincula de forma opcional a un usuario del sistema, separando la persona del acceso. La multa es una relación uno a uno con el préstamo, cuyo vencimiento se resuelve como propiedad calculada en lugar de guardarse.</p>
+                <p class="es">Aplicación Django construida sobre un modelo de diez entidades. El peso del proyecto no estuvo en la interfaz sino en las <strong>decisiones de modelado</strong>, que resuelven problemas reales de una biblioteca.</p>
+                <p class="es">Préstamos y reservas apuntan al <strong>ejemplar físico</strong> y no al libro como entidad abstracta, y cada ejemplar mantiene su propio estado —disponible, prestado, reservado, mantenimiento—. El socio se identifica por DNI como clave primaria y se vincula de forma opcional a un usuario del sistema, separando la persona del acceso. La multa es una relación uno a uno con el préstamo, cuyo vencimiento se resuelve como propiedad calculada en lugar de guardarse.</p>
+                <p class="en">A Django application built on a ten-entity model. The weight of the project was not in the interface but in the <strong>modeling decisions</strong>, which solve real problems of a library.</p>
+                <p class="en">Loans and reservations point to the <strong>physical copy</strong> rather than to the book as an abstract entity, and each copy keeps its own status —available, on loan, reserved, maintenance—. The member is identified by national ID as primary key and is optionally linked to a system user, separating the person from the access. The fine is a one-to-one relation with the loan, whose due date is resolved as a computed property instead of being stored.</p>
               </div>
               <div class="case-foot">
-                <div class="case-stack">Python · Django · MySQL · Modelo E-R</div>
+                <div class="case-stack"><span class="es">Python · Django · MySQL · Modelo E-R</span><span class="en">Python · Django · MySQL · E-R model</span></div>
                 <div class="case-links">
-                  <a class="case-link" href="https://github.com/nazagf/Biblioteca" target="_blank" rel="noopener">Repositorio <span class="arw">↗</span></a>
+                  <a class="case-link" href="https://github.com/nazagf/Biblioteca" target="_blank" rel="noopener"><span class="es">Repositorio</span><span class="en">Repository</span> <span class="arw">↗</span></a>
                   <!-- TODO: reemplazar por la URL real del demo -->
-                  <a class="case-link" href="#" target="_blank" rel="noopener">Demo en vivo <span class="arw">↗</span></a>
+                  <a class="case-link" href="#" target="_blank" rel="noopener"><span class="es">Demo en vivo</span><span class="en">Live demo</span> <span class="arw">↗</span></a>
                 </div>
               </div>
             </div>
-            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas del sistema de biblioteca" tabindex="0">
+            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas del sistema de biblioteca" data-aria-es="Capturas del sistema de biblioteca" data-aria-en="Screenshots of the library system" tabindex="0">
               <div class="figbar">
                 <span class="d"></span><span class="d"></span><span class="d"></span>
                 <span class="label" data-car-label>biblioteca — inicio de sesión</span>
               </div>
               <div class="carousel-viewport">
                 <div class="carousel-track" data-car-track>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 6" data-caption="biblioteca — inicio de sesión">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — inicio de sesión" data-caption-en="library — sign in">
                     <img src="./biblioteca/01-login.png" alt="Pantalla de inicio de sesión de Entre Páginas" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 6" data-caption="biblioteca — inicio (bibliotecario)">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — inicio (bibliotecario)" data-caption-en="library — home (librarian)">
                     <img src="./biblioteca/02-inicio.png" alt="Inicio con sesión de bibliotecario iniciada" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 6" data-caption="biblioteca — catálogo · detalle de libro">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — catálogo · detalle de libro" data-caption-en="library — catalog · book detail">
                     <img src="./biblioteca/03-catalogo.png" alt="Detalle de un libro del catálogo" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 6" data-caption="biblioteca — gestión de socios">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de socios" data-caption-en="library — member management">
                     <img src="./biblioteca/04-socios.png" alt="Gestión de socios en tarjetas" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="5 de 6" data-caption="biblioteca — gestión de préstamos">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de préstamos" data-caption-en="library — loan management">
                     <img src="./biblioteca/05-prestamos.png" alt="Gestión de préstamos en tabla" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="6 de 6" data-caption="biblioteca — gestión de reservas">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de reservas" data-caption-en="library — reservation management">
                     <img src="./biblioteca/06-reservas.png" alt="Gestión de reservas en tabla" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                 </div>
@@ -384,37 +421,39 @@
 
           <article class="case">
             <div class="case-body">
-              <div class="case-num">02 / Aplicación web — Proyecto personal</div>
+              <div class="case-num"><span class="es">02 / Aplicación web — Proyecto personal</span><span class="en">02 / Web application — Personal project</span></div>
               <div class="case-kicker">Django · PostgreSQL · Chart.js</div>
-              <h3 class="case-title">MisGastos — Dashboard financiero</h3>
+              <h3 class="case-title">MisGastos — <span class="es">Dashboard financiero</span><span class="en">Financial dashboard</span></h3>
               <div class="case-desc">
-                <p>Aplicación de finanzas personales con <strong>front y back en Django</strong>: registra gastos, controla presupuestos por mes y grafica tendencias, con persistencia en PostgreSQL a través del <strong>ORM de Django</strong> —con migraciones, panel de administración y una API JSON propia—. El frontend, con diseño de «estado de cuenta», se sirve como template con estáticos.</p>
-                <p>El panel resume el gasto del mes contra el presupuesto y dibuja su evolución con Chart.js; los presupuestos se controlan por categoría con su progreso mensual, y la gestión de datos incluye <strong>importación y exportación en CSV</strong>, backup y restauración en JSON. La identidad visual —papel cálido, acento dorado y tipografía tabular— busca leerse como un estado de cuenta.</p>
+                <p class="es">Aplicación de finanzas personales con <strong>front y back en Django</strong>: registra gastos, controla presupuestos por mes y grafica tendencias, con persistencia en PostgreSQL a través del <strong>ORM de Django</strong> —con migraciones, panel de administración y una API JSON propia—. El frontend, con diseño de «estado de cuenta», se sirve como template con estáticos.</p>
+                <p class="es">El panel resume el gasto del mes contra el presupuesto y dibuja su evolución con Chart.js; los presupuestos se controlan por categoría con su progreso mensual, y la gestión de datos incluye <strong>importación y exportación en CSV</strong>, backup y restauración en JSON. La identidad visual —papel cálido, acento dorado y tipografía tabular— busca leerse como un estado de cuenta.</p>
+                <p class="en">A personal-finance application with <strong>front and back end in Django</strong>: it records expenses, tracks monthly budgets and charts trends, with persistence in PostgreSQL through the <strong>Django ORM</strong> —with migrations, an admin panel and a custom JSON API—. The frontend, designed as a «bank statement», is served as a template with static files.</p>
+                <p class="en">The dashboard summarizes the month's spending against the budget and draws its evolution with Chart.js; budgets are tracked by category with their monthly progress, and data management includes <strong>CSV import and export</strong>, plus JSON backup and restore. The visual identity —warm paper, gold accent and tabular type— is meant to read like an account statement.</p>
               </div>
               <div class="case-foot">
                 <div class="case-stack">Django · PostgreSQL · ORM · Tailwind · Chart.js</div>
                 <div class="case-links">
-                  <a class="case-link" href="https://github.com/nazagf/MisGastos" target="_blank" rel="noopener">Repositorio <span class="arw">↗</span></a>
+                  <a class="case-link" href="https://github.com/nazagf/MisGastos" target="_blank" rel="noopener"><span class="es">Repositorio</span><span class="en">Repository</span> <span class="arw">↗</span></a>
                 </div>
               </div>
             </div>
-            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas de MisGastos" tabindex="0">
+            <figure class="case-figure carousel" aria-roledescription="carrusel" aria-label="Capturas de MisGastos" data-aria-es="Capturas de MisGastos" data-aria-en="Screenshots of MisGastos" tabindex="0">
               <div class="figbar">
                 <span class="d"></span><span class="d"></span><span class="d"></span>
                 <span class="label" data-car-label>MisGastos — dashboard</span>
               </div>
               <div class="carousel-viewport">
                 <div class="carousel-track" data-car-track>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="1 de 4" data-caption="MisGastos — dashboard">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — dashboard" data-caption-en="MisGastos — dashboard">
                     <img src="./misgastos/01-dashboard.png" alt="Dashboard con gasto total del mes y métricas por categoría" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="2 de 4" data-caption="MisGastos — registro de gastos">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — registro de gastos" data-caption-en="MisGastos — expense log">
                     <img src="./misgastos/02-gastos.png" alt="Registro de gastos en tabla con filtros por categoría y medio de pago" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="3 de 4" data-caption="MisGastos — presupuestos por categoría">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — presupuestos por categoría" data-caption-en="MisGastos — budgets by category">
                     <img src="./misgastos/03-presupuestos.png" alt="Presupuestos mensuales por categoría con su progreso" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
-                  <div class="slide" role="group" aria-roledescription="diapositiva" aria-label="4 de 4" data-caption="MisGastos — exportación e importación">
+                  <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — exportación e importación" data-caption-en="MisGastos — export and import">
                     <img src="./misgastos/04-exportar.png" alt="Gestión de datos: exportar e importar CSV, backup y restauración JSON" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
                 </div>
@@ -427,17 +466,18 @@
 
           <article class="case solo">
             <div class="case-body">
-              <div class="case-num">03 / Investigación — Lenguajes Formales y Teoría de la Computación</div>
-              <div class="case-kicker">Trabajo en equipo · Julio 2026</div>
-              <h3 class="case-title">Del paralelismo masivo a la eficiencia neuronal</h3>
+              <div class="case-num"><span class="es">03 / Investigación — Lenguajes Formales y Teoría de la Computación</span><span class="en">03 / Research — Formal Languages &amp; Theory of Computation</span></div>
+              <div class="case-kicker"><span class="es">Trabajo en equipo · Julio 2026</span><span class="en">Team project · July 2026</span></div>
+              <h3 class="case-title"><span class="es">Del paralelismo masivo a la eficiencia neuronal</span><span class="en">From massive parallelism to neural efficiency</span></h3>
               <div class="case-desc">
-                <p>Trabajo de investigación en equipo que recorre la limitación secuencial de la CPU, el paralelismo SIMT de la GPU y la especialización de NPU y TPU para sostener una hipótesis: que la integración cotidiana de la IA exige <strong>hardware de inferencia dedicado en el cliente</strong>, porque depender exclusivamente de servidores en la nube es insostenible en latencia, privacidad, costo y ancho de banda.</p>
+                <p class="es">Trabajo de investigación en equipo que recorre la limitación secuencial de la CPU, el paralelismo SIMT de la GPU y la especialización de NPU y TPU para sostener una hipótesis: que la integración cotidiana de la IA exige <strong>hardware de inferencia dedicado en el cliente</strong>, porque depender exclusivamente de servidores en la nube es insostenible en latencia, privacidad, costo y ancho de banda.</p>
+                <p class="en">A team research paper that goes through the sequential limitation of the CPU, the SIMT parallelism of the GPU and the specialization of NPUs and TPUs to support one hypothesis: that everyday integration of AI demands <strong>dedicated inference hardware on the client</strong>, because relying exclusively on cloud servers is unsustainable in latency, privacy, cost and bandwidth.</p>
               </div>
               <div class="case-foot">
                 <div class="case-stack">CPU · GPU / SIMT · NPU · TPU</div>
                 <div class="case-links">
-                  <a class="case-link" href="./paper-hardware-ia.pdf" target="_blank" rel="noopener">Leer el paper (PDF) <span class="arw">↗</span></a>
-                  <a class="case-link" href="./presentacion-hardware-ia.pdf" target="_blank" rel="noopener">Ver presentación <span class="arw">↗</span></a>
+                  <a class="case-link" href="./paper-hardware-ia.pdf" target="_blank" rel="noopener"><span class="es">Leer el paper (PDF)</span><span class="en">Read the paper (PDF)</span> <span class="arw">↗</span></a>
+                  <a class="case-link" href="./presentacion-hardware-ia.pdf" target="_blank" rel="noopener"><span class="es">Ver presentación</span><span class="en">View slides</span> <span class="arw">↗</span></a>
                 </div>
               </div>
             </div>
@@ -450,8 +490,8 @@
     <section id="perfil">
       <div class="page">
         <div class="sec-head">
-          <div class="sec-index">#perfil</div>
-          <h2 class="sec-title">Perfil</h2>
+          <div class="sec-index"><span class="es">#perfil</span><span class="en">#profile</span></div>
+          <h2 class="sec-title"><span class="es">Perfil</span><span class="en">Profile</span></h2>
         </div>
         <div class="profile-grid">
           <figure class="profile-photo">
@@ -459,9 +499,12 @@
             <figcaption>Nazareno Ferreyro — Buenos Aires</figcaption>
           </figure>
           <div class="prose">
-            <p>Llevo <strong>21 materias aprobadas</strong> de la carrera. Mi interés está menos en el desarrollo de interfaces y más en las capas inferiores: sistemas operativos, administración, redes y la infraestructura que sostiene todo lo demás.</p>
-            <p>De ahí se desprende mi interés por el hardware aplicado a inteligencia artificial: cómo las unidades de aceleración dedicadas redefinen qué resulta viable ejecutar en el propio dispositivo en lugar de delegarlo a la nube. Es el eje del trabajo de investigación que desarrollé para Lenguajes Formales y Teoría de la Computación.</p>
-            <p>Actualmente me estoy formando en <strong>servicios cloud</strong> y profundizando en administración de sistemas. Soy además <strong>IEEE Student Member</strong>, miembro de la <strong>IEEE Computer Society</strong> y del <strong>Club de Informática de la UCEMA</strong>.</p>
+            <p class="es">Llevo <strong>21 materias aprobadas</strong> de la carrera. Mi interés está menos en el desarrollo de interfaces y más en las capas inferiores: sistemas operativos, administración, redes y la infraestructura que sostiene todo lo demás.</p>
+            <p class="es">De ahí se desprende mi interés por el hardware aplicado a inteligencia artificial: cómo las unidades de aceleración dedicadas redefinen qué resulta viable ejecutar en el propio dispositivo en lugar de delegarlo a la nube. Es el eje del trabajo de investigación que desarrollé para Lenguajes Formales y Teoría de la Computación.</p>
+            <p class="es">Actualmente me estoy formando en <strong>servicios cloud</strong> y profundizando en administración de sistemas. Soy además <strong>IEEE Student Member</strong>, miembro de la <strong>IEEE Computer Society</strong> y del <strong>Club de Informática de la UCEMA</strong>.</p>
+            <p class="en">I have <strong>21 courses passed</strong> in the degree. My interest lies less in building interfaces and more in the lower layers: operating systems, administration, networks and the infrastructure that holds everything else up.</p>
+            <p class="en">That is where my interest in hardware applied to artificial intelligence comes from: how dedicated acceleration units redefine what is feasible to run on the device itself instead of delegating it to the cloud. It is the core of the research paper I wrote for Formal Languages &amp; Theory of Computation.</p>
+            <p class="en">I am currently training in <strong>cloud services</strong> and going deeper into systems administration. I am also an <strong>IEEE Student Member</strong>, a member of the <strong>IEEE Computer Society</strong> and of the <strong>UCEMA Computer Science Club</strong>.</p>
           </div>
         </div>
       </div>
@@ -475,7 +518,7 @@
         </div>
         <div class="defs">
           <div class="def-row">
-            <div class="def-key">lenguajes</div>
+            <div class="def-key"><span class="es">lenguajes</span><span class="en">languages</span></div>
             <div class="def-val">Python <span class="sep">/</span> C <span class="sep">/</span> C# <span class="sep">/</span> T-SQL</div>
           </div>
           <div class="def-row">
@@ -483,16 +526,16 @@
             <div class="def-val">Django</div>
           </div>
           <div class="def-row">
-            <div class="def-key">infraestructura</div>
+            <div class="def-key"><span class="es">infraestructura</span><span class="en">infrastructure</span></div>
             <div class="def-val">Linux <span class="sep">/</span> Git <span class="sep">/</span> Cloud <span class="sep">/</span> n8n <span class="sep">/</span> Docker</div>
           </div>
           <div class="def-row">
-            <div class="def-key">datos</div>
-            <div class="def-val">Modelado E-R <span class="sep">/</span> SQL <span class="sep">/</span> MySQL</div>
+            <div class="def-key"><span class="es">datos</span><span class="en">data</span></div>
+            <div class="def-val"><span class="es">Modelado E-R</span><span class="en">E-R modeling</span> <span class="sep">/</span> SQL <span class="sep">/</span> MySQL</div>
           </div>
           <div class="def-row">
-            <div class="def-key">idiomas</div>
-            <div class="def-val">Español nativo <span class="sep">/</span> Inglés B2</div>
+            <div class="def-key"><span class="es">idiomas</span><span class="en">spoken languages</span></div>
+            <div class="def-val"><span class="es">Español nativo <span class="sep">/</span> Inglés B2</span><span class="en">Spanish native <span class="sep">/</span> English B2</span></div>
           </div>
         </div>
       </div>
@@ -501,21 +544,24 @@
     <section id="formacion">
       <div class="page">
         <div class="sec-head">
-          <div class="sec-index">#formacion</div>
-          <h2 class="sec-title">Formación</h2>
+          <div class="sec-index"><span class="es">#formacion</span><span class="en">#education</span></div>
+          <h2 class="sec-title"><span class="es">Formación</span><span class="en">Education</span></h2>
         </div>
         <div class="defs" style="margin-bottom: 40px;">
           <div class="def-row">
-            <div class="def-key">en curso</div>
-            <div class="def-val">Ingeniería en Informática — UCEMA<br><span style="color: var(--text-dim); font-size: 14px;">Tercer año · 21 materias aprobadas</span></div>
+            <div class="def-key"><span class="es">en curso</span><span class="en">in progress</span></div>
+            <div class="def-val">
+              <span class="es">Ingeniería en Informática — UCEMA<br><span style="color: var(--text-dim); font-size: 14px;">Tercer año · 21 materias aprobadas</span></span>
+              <span class="en">Computer Engineering — UCEMA<br><span style="color: var(--text-dim); font-size: 14px;">Third year · 21 courses passed</span></span>
+            </div>
           </div>
           <div class="def-row">
-            <div class="def-key">título obtenido</div>
-            <div class="def-val">Analista en Informática — UCEMA</div>
+            <div class="def-key"><span class="es">título obtenido</span><span class="en">degree earned</span></div>
+            <div class="def-val"><span class="es">Analista en Informática — UCEMA</span><span class="en">Computer Analyst — UCEMA</span></div>
           </div>
         </div>
 
-        <div class="def-key" style="margin-bottom: 6px;">certificaciones</div>
+        <div class="def-key" style="margin-bottom: 6px;"><span class="es">certificaciones</span><span class="en">certifications</span></div>
         <div class="cred-row">
           <div>
             <div class="cred-name">LFS-101 — Introduction to Linux</div>
@@ -532,7 +578,7 @@
         </div>
         <div class="cred-row">
           <div>
-            <div class="cred-name">Fundamentos de Inteligencia Artificial</div>
+            <div class="cred-name"><span class="es">Fundamentos de Inteligencia Artificial</span><span class="en">Artificial Intelligence Fundamentals</span></div>
             <div class="cred-issuer">IBM</div>
           </div>
           <div class="cred-date">Oct 2024</div>
@@ -543,11 +589,12 @@
     <section id="contacto">
       <div class="page">
         <div class="sec-head">
-          <div class="sec-index">#contacto</div>
-          <h2 class="sec-title">Contacto</h2>
+          <div class="sec-index"><span class="es">#contacto</span><span class="en">#contact</span></div>
+          <h2 class="sec-title"><span class="es">Contacto</span><span class="en">Contact</span></h2>
         </div>
         <div class="contact-grid">
-          <p class="prose">Mi área de interés profesional es la infraestructura, el cloud y la administración de sistemas. Para consultas o propuestas, estoy disponible por cualquiera de estos medios.</p>
+          <p class="prose es">Mi área de interés profesional es la infraestructura, el cloud y la administración de sistemas. Para consultas o propuestas, estoy disponible por cualquiera de estos medios.</p>
+          <p class="prose en">My professional area of interest is infrastructure, cloud and systems administration. For questions or proposals, I am available through any of these channels.</p>
           <div class="contact-list">
             <div class="contact-row">
               <div class="def-key">email</div>
@@ -562,7 +609,7 @@
               <div><a href="https://www.linkedin.com/in/nazareno-gast%C3%B3n-ferreyro" target="_blank" rel="noopener">Nazareno Gastón Ferreyro</a></div>
             </div>
             <div class="contact-row">
-              <div class="def-key">ubicación</div>
+              <div class="def-key"><span class="es">ubicación</span><span class="en">location</span></div>
               <div style="color: var(--text-dim); font-size: 15px;">Buenos Aires, Argentina</div>
             </div>
           </div>
@@ -589,10 +636,13 @@
       var prevBtn = root.querySelector('[data-car-prev]');
       var nextBtn = root.querySelector('[data-car-next]');
 
-      var captions = slides.map(function (s) {
+      function captionOf(s) {
+        var en = document.documentElement.getAttribute('data-lang') === 'en';
         var img = s.querySelector('img');
-        return s.getAttribute('data-caption') || (img ? img.getAttribute('alt') : '') || '';
-      });
+        return (en && s.getAttribute('data-caption-en')) ||
+               s.getAttribute('data-caption') ||
+               (img ? img.getAttribute('alt') : '') || '';
+      }
 
       var index = 0;
       var count = slides.length;
@@ -602,22 +652,34 @@
         var b = document.createElement('button');
         b.type = 'button';
         b.setAttribute('role', 'tab');
-        b.setAttribute('aria-label', 'Captura ' + (i + 1) + ' de ' + count);
         b.addEventListener('click', function () { go(i); });
         dotsWrap.appendChild(b);
         return b;
       });
 
       function render() {
+        var en = document.documentElement.getAttribute('data-lang') === 'en';
         track.style.transform = 'translateX(' + (-index * 100) + '%)';
-        if (label) label.textContent = captions[index] || '';
+        if (label) label.textContent = captionOf(slides[index]);
         dots.forEach(function (d, i) {
           d.setAttribute('aria-current', i === index ? 'true' : 'false');
+          d.setAttribute('aria-label', (en ? 'Screenshot ' : 'Captura ') + (i + 1) + (en ? ' of ' : ' de ') + count);
         });
         slides.forEach(function (s, i) {
           s.setAttribute('aria-hidden', i === index ? 'false' : 'true');
+          s.setAttribute('aria-label', (i + 1) + (en ? ' of ' : ' de ') + count);
+          s.setAttribute('aria-roledescription', en ? 'slide' : 'diapositiva');
         });
+        if (prevBtn) prevBtn.setAttribute('aria-label', en ? 'Previous screenshot' : 'Captura anterior');
+        if (nextBtn) nextBtn.setAttribute('aria-label', en ? 'Next screenshot' : 'Captura siguiente');
+        root.setAttribute('aria-roledescription', en ? 'carousel' : 'carrusel');
+        var rootAria = en ? root.getAttribute('data-aria-en') : root.getAttribute('data-aria-es');
+        if (rootAria) root.setAttribute('aria-label', rootAria);
+        if (dotsWrap) dotsWrap.setAttribute('aria-label', en ? 'Choose screenshot' : 'Elegir captura');
       }
+
+      // el idioma cambia los textos accesibles y el pie de la captura
+      document.addEventListener('langchange', render);
 
       function go(i) { index = (i + count) % count; render(); }
       function next() { go(index + 1); }
@@ -682,6 +744,45 @@
       }, { rootMargin: '-45% 0px -50% 0px', threshold: 0 });
 
       sections.forEach(function (s) { io.observe(s); });
+    })();
+
+    // selector de idioma: alterna .es / .en vía data-lang en <html>
+    (function () {
+      var root = document.documentElement;
+      var btns = Array.prototype.slice.call(document.querySelectorAll('.langtoggle button'));
+      var meta = document.querySelector('meta[name="description"]');
+
+      var copy = {
+        es: {
+          title: 'Nazareno Ferreyro — Ingeniería en Informática',
+          desc: 'Estudiante de Ingeniería en Informática en UCEMA. Infraestructura, sistemas operativos y hardware para inteligencia artificial.'
+        },
+        en: {
+          title: 'Nazareno Ferreyro — Computer Engineering',
+          desc: 'Computer Engineering student at UCEMA. Infrastructure, operating systems and hardware for artificial intelligence.'
+        }
+      };
+
+      function setLang(l) {
+        root.setAttribute('data-lang', l);
+        root.setAttribute('lang', l);
+        document.title = copy[l].title;
+        if (meta) meta.setAttribute('content', copy[l].desc);
+        try { localStorage.setItem('lang', l); } catch (e) {}
+        btns.forEach(function (b) {
+          var on = b.getAttribute('data-l') === l;
+          b.classList.toggle('active', on);
+          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+        });
+        document.dispatchEvent(new CustomEvent('langchange'));
+      }
+
+      btns.forEach(function (b) {
+        b.addEventListener('click', function () { setLang(b.getAttribute('data-l')); });
+      });
+
+      // el <head> ya fijó data-lang; sincronizamos botones, título y carruseles
+      setLang(root.getAttribute('data-lang') === 'en' ? 'en' : 'es');
     })();
   </script>
 

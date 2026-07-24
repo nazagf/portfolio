@@ -1,8 +1,17 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="es" data-lang="es">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+(function () {
+  var l = null;
+  try { l = localStorage.getItem("lang") || localStorage.getItem("cvlang"); } catch (e) {}
+  if (l !== "en" && l !== "es") l = (navigator.language || "es").slice(0, 2) === "en" ? "en" : "es";
+  document.documentElement.setAttribute("data-lang", l);
+  document.documentElement.setAttribute("lang", l);
+})();
+</script>
 <title>CV — Nazareno Gastón Ferreyro</title>
 <meta name="description" content="CV de Nazareno Gastón Ferreyro — Estudiante de Ingeniería en Informática (UCEMA), orientado a sistemas e infraestructura.">
 <meta name="author" content="Nazareno Gastón Ferreyro">
@@ -55,8 +64,8 @@ body { background: var(--bg); }
 .topline { position: fixed; top: 0; left: 0; right: 0; height: 2px; background: var(--accent); z-index: 100; }
 
 /* ---------- language visibility ---------- */
-#cv[data-lang="es"] .en { display: none; }
-#cv[data-lang="en"] .es { display: none; }
+html[data-lang="es"] .en { display: none; }
+html[data-lang="en"] .es { display: none; }
 
 /* ---------- masthead ---------- */
 .masthead {
@@ -191,7 +200,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
 }
 </style>
 
-<div id="cv" class="cvwrap" data-lang="es" lang="es">
+<div id="cv" class="cvwrap">
   <div class="topline"></div>
 
   <header class="masthead">
@@ -394,12 +403,14 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
 
 <script>
 (function () {
-  var wrap = document.getElementById("cv");
-  var btns = wrap.querySelectorAll(".langtoggle button");
+  var root = document.documentElement;
+  var btns = Array.prototype.slice.call(document.querySelectorAll(".langtoggle button"));
+  var titles = { es: "CV — Nazareno Gastón Ferreyro", en: "Résumé — Nazareno Gastón Ferreyro" };
   function setLang(l) {
-    wrap.setAttribute("data-lang", l);
-    wrap.setAttribute("lang", l);
-    try { localStorage.setItem("cvlang", l); } catch (e) {}
+    root.setAttribute("data-lang", l);
+    root.setAttribute("lang", l);
+    document.title = titles[l];
+    try { localStorage.setItem("lang", l); } catch (e) {}
     btns.forEach(function (b) {
       var on = b.dataset.l === l;
       b.classList.toggle("active", on);
@@ -407,9 +418,8 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
     });
   }
   btns.forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.l); }); });
-  var saved = null;
-  try { saved = localStorage.getItem("cvlang"); } catch (e) {}
-  if (saved === "en") setLang("en");
+  // el <head> ya fijó data-lang; acá sincronizamos botones y título
+  setLang(root.getAttribute("data-lang") === "en" ? "en" : "es");
 })();
 </script>
 
