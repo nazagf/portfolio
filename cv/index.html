@@ -89,7 +89,9 @@ html[data-lang="en"] .es { display: none; }
   transition: color 0.15s, background 0.15s;
 }
 .langtoggle button:hover { color: var(--text); }
-.langtoggle button.active { background: var(--accent); color: #0d0d0f; font-weight: 500; }
+/* el botón activo se deriva de data-lang: correcto ya en el primer pintado, sin parpadeo */
+html[data-lang="es"] .langtoggle button[data-l="es"],
+html[data-lang="en"] .langtoggle button[data-l="en"] { background: var(--accent); color: #0d0d0f; font-weight: 500; }
 
 .btn {
   font-family: var(--sans); font-size: 13px; font-weight: 500;
@@ -207,7 +209,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
     <div class="masthead-inner">
       <div class="wordmark">Nazareno Ferreyro<span>.</span></div>
       <div class="langtoggle" role="group" aria-label="Idioma / Language">
-        <button type="button" data-l="es" class="active" aria-pressed="true">ES</button>
+        <button type="button" data-l="es" aria-pressed="true">ES</button>
         <button type="button" data-l="en" aria-pressed="false">EN</button>
       </div>
       <a class="btn es" href="CV-Nazareno-Ferreyro-ES.pdf" download>
@@ -244,7 +246,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
       </div>
       <div>
         <p class="lead es">Estudiante de Ingeniería en Informática (UCEMA) con foco en <strong>sistemas, infraestructura y despliegue</strong>. Administro Linux a diario —shell, systemd, almacenamiento y servicios—, gestiono <strong>servidores/VPS por SSH</strong> y contenedores con Docker, y llevo proyectos propios a producción: Azure Static Web Apps sobre HTTPS, con dominio, DNS y CDN en Cloudflare. También desarrollo las aplicaciones que despliego, con Python/Django y PostgreSQL. Autodidacta, resuelvo de punta a punta: del servidor y el dato a la aplicación. Inglés B2 · disponibilidad full-time.</p>
-        <p class="lead en">Computer Engineering student (UCEMA) focused on <strong>systems, infrastructure and deployment</strong>. I run Linux daily —shell, systemd, storage and services—, manage <strong>servers/VPS over SSH</strong> and containers with Docker, and take my own projects to production: Azure Static Web Apps over HTTPS, with a custom domain, DNS and CDN on Cloudflare. I also build the applications I deploy, with Python/Django and PostgreSQL. Self-taught, I solve end to end: from the server and the data to the application. English B2 · available full-time.</p>
+        <p class="lead en">Computer Engineering student (UCEMA) focused on <strong>systems, infrastructure, and deployment</strong>. I work in Linux every day — shell, systemd, storage, services — administer <strong>servers and VPS over SSH</strong>, run containers with Docker, and ship my own projects to production: Azure Static Web Apps over HTTPS, with a custom domain, DNS, and CDN on Cloudflare. I also build the applications I deploy, in Python/Django with PostgreSQL. Largely self-taught, I work end to end: from the server and the data up to the application. English B2 · available full-time.</p>
       </div>
     </section>
 
@@ -297,7 +299,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
           <div class="proj-stack">Azure Static Web Apps · Cloudflare</div>
           <div class="proj-desc">
             <span class="es">Sitio personal en producción con dominio propio: hosting en Azure Static Web Apps y despliegue continuo desde GitHub; DNS, CDN y redirecciones www ↔ apex gestionadas en Cloudflare.</span>
-            <span class="en">Personal site in production with a custom domain: hosting on Azure Static Web Apps and continuous deployment from GitHub; DNS, CDN and www ↔ apex redirects managed on Cloudflare.</span>
+            <span class="en">Personal site running in production on a custom domain: hosted on Azure Static Web Apps with continuous deployment from GitHub; DNS, CDN, and www ↔ apex redirects managed on Cloudflare.</span>
           </div>
         </div>
         <div class="proj">
@@ -308,7 +310,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
           <div class="proj-stack"><span class="es">Django · PostgreSQL · API JSON</span><span class="en">Django · PostgreSQL · JSON API</span></div>
           <div class="proj-desc">
             <span class="es">Finanzas personales sobre Django y PostgreSQL: modelado de datos, ORM y API JSON propia, con importación y exportación en CSV.</span>
-            <span class="en">Personal-finance app on Django and PostgreSQL: data modeling, ORM and a custom JSON API, with CSV import/export.</span>
+            <span class="en">Personal-finance app built on Django and PostgreSQL: data modeling, ORM, and a custom JSON API, with CSV import/export.</span>
           </div>
         </div>
         <div class="proj">
@@ -319,7 +321,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
           <div class="proj-stack">Django · PostgreSQL</div>
           <div class="proj-desc">
             <span class="es">Modelo de datos de diez entidades en PostgreSQL: préstamos y reservas apuntan al ejemplar físico, cada ejemplar mantiene su estado y la multa se resuelve como propiedad calculada.</span>
-            <span class="en">Ten-entity data model in PostgreSQL: loans and reservations point to the physical copy, each copy keeps its own status and the fine is resolved as a computed property.</span>
+            <span class="en">Ten-entity data model in PostgreSQL: loans and reservations point at the physical copy, every copy carries its own status, and the fine's due date is computed rather than stored.</span>
           </div>
         </div>
         <div class="proj">
@@ -329,7 +331,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
           <div class="proj-stack"><span class="es">Trabajo en equipo</span><span class="en">Team project</span></div>
           <div class="proj-desc">
             <span class="es">Evolución del silicio (CPU, GPU/SIMT, NPU, TPU) y la necesidad de hardware de inferencia dedicado en el cliente. Para Lenguajes Formales y Teoría de la Computación.</span>
-            <span class="en">Evolution of silicon (CPU, GPU/SIMT, NPU, TPU) and the need for dedicated inference hardware on the client. For Formal Languages &amp; Theory of Computation.</span>
+            <span class="en">How silicon evolved (CPU, GPU/SIMT, NPU, TPU) and why AI on the client needs dedicated inference hardware. Written for Formal Languages &amp; Theory of Computation.</span>
           </div>
         </div>
       </div>
@@ -412,9 +414,7 @@ footer a:hover { color: var(--accent); border-color: var(--accent); }
     document.title = titles[l];
     try { localStorage.setItem("lang", l); } catch (e) {}
     btns.forEach(function (b) {
-      var on = b.dataset.l === l;
-      b.classList.toggle("active", on);
-      b.setAttribute("aria-pressed", on ? "true" : "false");
+      b.setAttribute("aria-pressed", b.dataset.l === l ? "true" : "false");
     });
   }
   btns.forEach(function (b) { b.addEventListener("click", function () { setLang(b.dataset.l); }); });

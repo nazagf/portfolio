@@ -106,7 +106,9 @@
       transition: color 0.15s, background 0.15s;
     }
     .langtoggle button:hover { color: var(--text); }
-    .langtoggle button.active { background: var(--accent); color: #0d0d0f; font-weight: 500; }
+    /* el botón activo se deriva de data-lang: correcto ya en el primer pintado, sin parpadeo */
+    html[data-lang="es"] .langtoggle button[data-l="es"],
+    html[data-lang="en"] .langtoggle button[data-l="en"] { background: var(--accent); color: #0d0d0f; font-weight: 500; }
 
     /* ---------- hero ---------- */
     .hero { padding: 100px 0 84px; border-bottom: 1px solid var(--rule); }
@@ -328,7 +330,7 @@
         <a href="#contacto"><span class="es">Contacto</span><span class="en">Contact</span></a>
       </nav>
       <div class="langtoggle" role="group" aria-label="Idioma / Language">
-        <button type="button" data-l="es" class="active" aria-pressed="true">ES</button>
+        <button type="button" data-l="es" aria-pressed="true">ES</button>
         <button type="button" data-l="en" aria-pressed="false">EN</button>
       </div>
     </div>
@@ -344,10 +346,10 @@
         </div>
         <h1>
           <span class="es">Me interesa la capa que <em>sostiene</em> todo lo demás.</span>
-          <span class="en">I care about the layer that <em>holds up</em> everything else.</span>
+          <span class="en">I'm drawn to the layer everything else <em>rests</em> on.</span>
         </h1>
         <p class="hero-lead es">Sistemas, infraestructura y el hardware que lleva la IA fuera de la nube: ahí está mi interés. Soy <strong>Analista en Informática</strong> y curso el tercer año de <strong>Ingeniería en Informática</strong>, mientras me formo en cloud e IA.</p>
-        <p class="hero-lead en">Systems, infrastructure and the hardware that takes AI out of the cloud: that is where my interest lies. I am a <strong>Computer Analyst</strong> and I am in my third year of <strong>Computer Engineering</strong>, while training in cloud and AI.</p>
+        <p class="hero-lead en">Systems, infrastructure, and the hardware that's moving AI out of the cloud — that's what I'm after. I've completed the intermediate <strong>Computer Analyst</strong> degree and I'm now in my third year of <strong>Computer Engineering</strong>, while training in cloud and AI.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#trabajo"><span class="es">Ver trabajo</span><span class="en">View work</span></a>
           <a class="btn" href="https://github.com/nazagf" target="_blank" rel="noopener">GitHub</a>
@@ -374,8 +376,8 @@
               <div class="case-desc">
                 <p class="es">Aplicación Django construida sobre un modelo de diez entidades. El peso del proyecto no estuvo en la interfaz sino en las <strong>decisiones de modelado</strong>, que resuelven problemas reales de una biblioteca.</p>
                 <p class="es">Préstamos y reservas apuntan al <strong>ejemplar físico</strong> y no al libro como entidad abstracta, y cada ejemplar mantiene su propio estado —disponible, prestado, reservado, mantenimiento—. El socio se identifica por DNI como clave primaria y se vincula de forma opcional a un usuario del sistema, separando la persona del acceso. La multa es una relación uno a uno con el préstamo, cuyo vencimiento se resuelve como propiedad calculada en lugar de guardarse.</p>
-                <p class="en">A Django application built on a ten-entity model. The weight of the project was not in the interface but in the <strong>modeling decisions</strong>, which solve real problems of a library.</p>
-                <p class="en">Loans and reservations point to the <strong>physical copy</strong> rather than to the book as an abstract entity, and each copy keeps its own status —available, on loan, reserved, maintenance—. The member is identified by national ID as primary key and is optionally linked to a system user, separating the person from the access. The fine is a one-to-one relation with the loan, whose due date is resolved as a computed property instead of being stored.</p>
+                <p class="en">A Django application built on a ten-entity data model. The interesting part wasn't the interface — it was the <strong>modeling decisions</strong>, which answer problems a real library actually runs into.</p>
+                <p class="en">Loans and reservations point at the <strong>physical copy</strong>, not at the book as an abstract entity, and every copy carries its own status: available, on loan, reserved, in maintenance. Members are keyed by national ID instead of a surrogate key, and link to a system user only optionally — the person and the login stay separate. A fine is one-to-one with its loan, and the due date is computed on the fly rather than stored.</p>
               </div>
               <div class="case-foot">
                 <div class="case-stack"><span class="es">Python · Django · MySQL · Modelo E-R</span><span class="en">Python · Django · MySQL · E-R model</span></div>
@@ -394,22 +396,22 @@
               <div class="carousel-viewport">
                 <div class="carousel-track" data-car-track>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — inicio de sesión" data-caption-en="library — sign in">
-                    <img src="./biblioteca/01-login.png" alt="Pantalla de inicio de sesión de Entre Páginas" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/01-login.png" alt="Pantalla de inicio de sesión de Entre Páginas" data-alt-en="Entre Páginas sign-in screen" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — inicio (bibliotecario)" data-caption-en="library — home (librarian)">
-                    <img src="./biblioteca/02-inicio.png" alt="Inicio con sesión de bibliotecario iniciada" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/02-inicio.png" alt="Inicio con sesión de bibliotecario iniciada" data-alt-en="Home screen, signed in as a librarian" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — catálogo · detalle de libro" data-caption-en="library — catalog · book detail">
-                    <img src="./biblioteca/03-catalogo.png" alt="Detalle de un libro del catálogo" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/03-catalogo.png" alt="Detalle de un libro del catálogo" data-alt-en="Detail view of a book in the catalog" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de socios" data-caption-en="library — member management">
-                    <img src="./biblioteca/04-socios.png" alt="Gestión de socios en tarjetas" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/04-socios.png" alt="Gestión de socios en tarjetas" data-alt-en="Member management shown as cards" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de préstamos" data-caption-en="library — loan management">
-                    <img src="./biblioteca/05-prestamos.png" alt="Gestión de préstamos en tabla" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/05-prestamos.png" alt="Gestión de préstamos en tabla" data-alt-en="Loan management in a table" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="biblioteca — gestión de reservas" data-caption-en="library — reservation management">
-                    <img src="./biblioteca/06-reservas.png" alt="Gestión de reservas en tabla" width="1600" height="715" loading="lazy" decoding="async">
+                    <img src="./biblioteca/06-reservas.png" alt="Gestión de reservas en tabla" data-alt-en="Reservation management in a table" width="1600" height="715" loading="lazy" decoding="async">
                   </div>
                 </div>
                 <button class="car-nav prev" type="button" data-car-prev aria-label="Captura anterior">‹</button>
@@ -427,8 +429,8 @@
               <div class="case-desc">
                 <p class="es">Aplicación de finanzas personales con <strong>front y back en Django</strong>: registra gastos, controla presupuestos por mes y grafica tendencias, con persistencia en PostgreSQL a través del <strong>ORM de Django</strong> —con migraciones, panel de administración y una API JSON propia—. El frontend, con diseño de «estado de cuenta», se sirve como template con estáticos.</p>
                 <p class="es">El panel resume el gasto del mes contra el presupuesto y dibuja su evolución con Chart.js; los presupuestos se controlan por categoría con su progreso mensual, y la gestión de datos incluye <strong>importación y exportación en CSV</strong>, backup y restauración en JSON. La identidad visual —papel cálido, acento dorado y tipografía tabular— busca leerse como un estado de cuenta.</p>
-                <p class="en">A personal-finance application with <strong>front and back end in Django</strong>: it records expenses, tracks monthly budgets and charts trends, with persistence in PostgreSQL through the <strong>Django ORM</strong> —with migrations, an admin panel and a custom JSON API—. The frontend, designed as a «bank statement», is served as a template with static files.</p>
-                <p class="en">The dashboard summarizes the month's spending against the budget and draws its evolution with Chart.js; budgets are tracked by category with their monthly progress, and data management includes <strong>CSV import and export</strong>, plus JSON backup and restore. The visual identity —warm paper, gold accent and tabular type— is meant to read like an account statement.</p>
+                <p class="en">A personal-finance app with <strong>front end and back end in Django</strong>: it logs expenses, tracks monthly budgets, and charts trends, persisting to PostgreSQL through the <strong>Django ORM</strong> — migrations, admin panel, and a custom JSON API included. The frontend is served as a Django template with static files, and is designed to read like a bank statement.</p>
+                <p class="en">The dashboard sets the month's spending against the budget and plots the trend with Chart.js. Budgets are tracked per category with their monthly progress, and the data tools cover <strong>CSV import and export</strong> plus JSON backup and restore. The visual identity — warm paper, a gold accent, tabular figures — carries that statement idea through.</p>
               </div>
               <div class="case-foot">
                 <div class="case-stack">Django · PostgreSQL · ORM · Tailwind · Chart.js</div>
@@ -445,16 +447,16 @@
               <div class="carousel-viewport">
                 <div class="carousel-track" data-car-track>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — dashboard" data-caption-en="MisGastos — dashboard">
-                    <img src="./misgastos/01-dashboard.png" alt="Dashboard con gasto total del mes y métricas por categoría" width="1600" height="780" loading="lazy" decoding="async">
+                    <img src="./misgastos/01-dashboard.png" alt="Dashboard con gasto total del mes y métricas por categoría" data-alt-en="Dashboard with the month's total spending and metrics by category" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — registro de gastos" data-caption-en="MisGastos — expense log">
-                    <img src="./misgastos/02-gastos.png" alt="Registro de gastos en tabla con filtros por categoría y medio de pago" width="1600" height="780" loading="lazy" decoding="async">
+                    <img src="./misgastos/02-gastos.png" alt="Registro de gastos en tabla con filtros por categoría y medio de pago" data-alt-en="Expense log in a table with filters by category and payment method" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — presupuestos por categoría" data-caption-en="MisGastos — budgets by category">
-                    <img src="./misgastos/03-presupuestos.png" alt="Presupuestos mensuales por categoría con su progreso" width="1600" height="780" loading="lazy" decoding="async">
+                    <img src="./misgastos/03-presupuestos.png" alt="Presupuestos mensuales por categoría con su progreso" data-alt-en="Monthly budgets by category with their progress" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
                   <div class="slide" role="group" aria-roledescription="diapositiva" data-caption="MisGastos — exportación e importación" data-caption-en="MisGastos — export and import">
-                    <img src="./misgastos/04-exportar.png" alt="Gestión de datos: exportar e importar CSV, backup y restauración JSON" width="1600" height="780" loading="lazy" decoding="async">
+                    <img src="./misgastos/04-exportar.png" alt="Gestión de datos: exportar e importar CSV, backup y restauración JSON" data-alt-en="Data management: CSV export and import, JSON backup and restore" width="1600" height="780" loading="lazy" decoding="async">
                   </div>
                 </div>
                 <button class="car-nav prev" type="button" data-car-prev aria-label="Captura anterior">‹</button>
@@ -471,7 +473,7 @@
               <h3 class="case-title"><span class="es">Del paralelismo masivo a la eficiencia neuronal</span><span class="en">From massive parallelism to neural efficiency</span></h3>
               <div class="case-desc">
                 <p class="es">Trabajo de investigación en equipo que recorre la limitación secuencial de la CPU, el paralelismo SIMT de la GPU y la especialización de NPU y TPU para sostener una hipótesis: que la integración cotidiana de la IA exige <strong>hardware de inferencia dedicado en el cliente</strong>, porque depender exclusivamente de servidores en la nube es insostenible en latencia, privacidad, costo y ancho de banda.</p>
-                <p class="en">A team research paper that goes through the sequential limitation of the CPU, the SIMT parallelism of the GPU and the specialization of NPUs and TPUs to support one hypothesis: that everyday integration of AI demands <strong>dedicated inference hardware on the client</strong>, because relying exclusively on cloud servers is unsustainable in latency, privacy, cost and bandwidth.</p>
+                <p class="en">A team research paper tracing the sequential limits of the CPU, the SIMT parallelism of the GPU, and the specialization of NPUs and TPUs. The argument: everyday use of AI calls for <strong>dedicated inference hardware on the client</strong>, because leaning entirely on cloud servers doesn't hold up on latency, privacy, cost, or bandwidth.</p>
               </div>
               <div class="case-foot">
                 <div class="case-stack">CPU · GPU / SIMT · NPU · TPU</div>
@@ -495,16 +497,16 @@
         </div>
         <div class="profile-grid">
           <figure class="profile-photo">
-            <img src="./retrato-naza.jpg" alt="Retrato de Nazareno Ferreyro" width="720" height="900" loading="lazy" decoding="async">
+            <img src="./retrato-naza.jpg" alt="Retrato de Nazareno Ferreyro" data-alt-en="Portrait of Nazareno Ferreyro" width="720" height="900" loading="lazy" decoding="async">
             <figcaption>Nazareno Ferreyro — Buenos Aires</figcaption>
           </figure>
           <div class="prose">
             <p class="es">Llevo <strong>21 materias aprobadas</strong> de la carrera. Mi interés está menos en el desarrollo de interfaces y más en las capas inferiores: sistemas operativos, administración, redes y la infraestructura que sostiene todo lo demás.</p>
             <p class="es">De ahí se desprende mi interés por el hardware aplicado a inteligencia artificial: cómo las unidades de aceleración dedicadas redefinen qué resulta viable ejecutar en el propio dispositivo en lugar de delegarlo a la nube. Es el eje del trabajo de investigación que desarrollé para Lenguajes Formales y Teoría de la Computación.</p>
             <p class="es">Actualmente me estoy formando en <strong>servicios cloud</strong> y profundizando en administración de sistemas. Soy además <strong>IEEE Student Member</strong>, miembro de la <strong>IEEE Computer Society</strong> y del <strong>Club de Informática de la UCEMA</strong>.</p>
-            <p class="en">I have <strong>21 courses passed</strong> in the degree. My interest lies less in building interfaces and more in the lower layers: operating systems, administration, networks and the infrastructure that holds everything else up.</p>
-            <p class="en">That is where my interest in hardware applied to artificial intelligence comes from: how dedicated acceleration units redefine what is feasible to run on the device itself instead of delegating it to the cloud. It is the core of the research paper I wrote for Formal Languages &amp; Theory of Computation.</p>
-            <p class="en">I am currently training in <strong>cloud services</strong> and going deeper into systems administration. I am also an <strong>IEEE Student Member</strong>, a member of the <strong>IEEE Computer Society</strong> and of the <strong>UCEMA Computer Science Club</strong>.</p>
+            <p class="en">I'm <strong>21 courses</strong> into the degree. I'm less interested in building interfaces than in the layers underneath: operating systems, administration, networks, and the infrastructure everything else rests on.</p>
+            <p class="en">That's what pulled me toward hardware for artificial intelligence: how dedicated accelerators change what you can realistically run on the device itself instead of handing it off to the cloud. It's the core of the research paper I wrote for Formal Languages &amp; Theory of Computation.</p>
+            <p class="en">Right now I'm training in <strong>cloud services</strong> and going deeper into systems administration. I'm an <strong>IEEE Student Member</strong>, part of the <strong>IEEE Computer Society</strong> and of the <strong>UCEMA Computer Science Club</strong>.</p>
           </div>
         </div>
       </div>
@@ -518,7 +520,7 @@
         </div>
         <div class="defs">
           <div class="def-row">
-            <div class="def-key"><span class="es">lenguajes</span><span class="en">languages</span></div>
+            <div class="def-key"><span class="es">lenguajes</span><span class="en">programming</span></div>
             <div class="def-val">Python <span class="sep">/</span> C <span class="sep">/</span> C# <span class="sep">/</span> T-SQL</div>
           </div>
           <div class="def-row">
@@ -534,8 +536,8 @@
             <div class="def-val"><span class="es">Modelado E-R</span><span class="en">E-R modeling</span> <span class="sep">/</span> SQL <span class="sep">/</span> MySQL</div>
           </div>
           <div class="def-row">
-            <div class="def-key"><span class="es">idiomas</span><span class="en">spoken languages</span></div>
-            <div class="def-val"><span class="es">Español nativo <span class="sep">/</span> Inglés B2</span><span class="en">Spanish native <span class="sep">/</span> English B2</span></div>
+            <div class="def-key"><span class="es">idiomas</span><span class="en">languages</span></div>
+            <div class="def-val"><span class="es">Español nativo <span class="sep">/</span> Inglés B2</span><span class="en">Native Spanish <span class="sep">/</span> English B2</span></div>
           </div>
         </div>
       </div>
@@ -556,8 +558,8 @@
             </div>
           </div>
           <div class="def-row">
-            <div class="def-key"><span class="es">título obtenido</span><span class="en">degree earned</span></div>
-            <div class="def-val"><span class="es">Analista en Informática — UCEMA</span><span class="en">Computer Analyst — UCEMA</span></div>
+            <div class="def-key"><span class="es">título obtenido</span><span class="en">completed</span></div>
+            <div class="def-val"><span class="es">Analista en Informática — UCEMA</span><span class="en">Computer Analyst (intermediate degree) — UCEMA</span></div>
           </div>
         </div>
 
@@ -594,7 +596,7 @@
         </div>
         <div class="contact-grid">
           <p class="prose es">Mi área de interés profesional es la infraestructura, el cloud y la administración de sistemas. Para consultas o propuestas, estoy disponible por cualquiera de estos medios.</p>
-          <p class="prose en">My professional area of interest is infrastructure, cloud and systems administration. For questions or proposals, I am available through any of these channels.</p>
+          <p class="prose en">Infrastructure, cloud, and systems administration are where I want to work. If you have a question or a proposal, any of these channels will reach me.</p>
           <div class="contact-list">
             <div class="contact-row">
               <div class="def-key">email</div>
@@ -752,6 +754,10 @@
       var btns = Array.prototype.slice.call(document.querySelectorAll('.langtoggle button'));
       var meta = document.querySelector('meta[name="description"]');
 
+      // el alt en español es el que ya está en el HTML; lo guardamos antes de tocarlo
+      var alts = Array.prototype.slice.call(document.querySelectorAll('img[data-alt-en]'));
+      alts.forEach(function (img) { img.setAttribute('data-alt-es', img.getAttribute('alt') || ''); });
+
       var copy = {
         es: {
           title: 'Nazareno Ferreyro — Ingeniería en Informática',
@@ -769,10 +775,12 @@
         document.title = copy[l].title;
         if (meta) meta.setAttribute('content', copy[l].desc);
         try { localStorage.setItem('lang', l); } catch (e) {}
+        // el texto alternativo de las imágenes también cambia de idioma
+        alts.forEach(function (img) {
+          img.setAttribute('alt', l === 'en' ? img.getAttribute('data-alt-en') : img.getAttribute('data-alt-es'));
+        });
         btns.forEach(function (b) {
-          var on = b.getAttribute('data-l') === l;
-          b.classList.toggle('active', on);
-          b.setAttribute('aria-pressed', on ? 'true' : 'false');
+          b.setAttribute('aria-pressed', b.getAttribute('data-l') === l ? 'true' : 'false');
         });
         document.dispatchEvent(new CustomEvent('langchange'));
       }
