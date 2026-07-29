@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://www.nazarenoferreyro.com.ar/sitemap.xml
