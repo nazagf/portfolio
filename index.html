@@ -193,6 +193,16 @@
     .case-link:hover { color: var(--accent); border-bottom-color: var(--accent); }
     .case-link .arw { color: var(--text-faint); transition: color 0.18s; }
     .case-link:hover .arw { color: var(--accent); }
+    .case-link.disabled {
+      color: var(--text-faint);
+      border-bottom: 1px dashed var(--rule-strong);
+      cursor: not-allowed;
+      user-select: none;
+    }
+    .case-link.disabled:hover {
+      color: var(--text-faint);
+      border-bottom-color: var(--rule-strong);
+    }
 
     /* figure / screenshot frame */
     .case-figure { border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--bg-raised); }
@@ -386,8 +396,8 @@
                 <div class="case-stack"><span class="es">Python · Django · MySQL · Modelo E-R</span><span class="en">Python · Django · MySQL · E-R model</span></div>
                 <div class="case-links">
                   <a class="case-link" href="https://github.com/nazagf/Biblioteca" target="_blank" rel="noopener"><span class="es">Repositorio</span><span class="en">Repository</span> <span class="arw">↗</span></a>
-                  <!-- TODO: reemplazar por la URL real del demo -->
-                  <a class="case-link" href="#" target="_blank" rel="noopener"><span class="es">Demo en vivo</span><span class="en">Live demo</span> <span class="arw">↗</span></a>
+                  <!-- TODO: habilitar enlace una vez desplegada la infraestructura -->
+                  <span class="case-link disabled" title="En construcción / Under construction"><span class="es">Demo en vivo · En construcción</span><span class="en">Live demo · Under construction</span></span>
                 </div>
               </div>
             </div>
